@@ -31,12 +31,20 @@ function Header() {
 }
 {/* MAIN */}
 {/* Events or Search Results */}
-function Main({title}) {
+function Main({title, listId}) {
   return (
     <main>
       <h2>{title}</h2>
       <section>
-        <ul>
+        {/* Event list component */}
+        <ul id="all-users">
+          {eventonica.Events.map((event) => (
+            <li>
+              {event.id} - <strong>{event.name}</strong> - {event.category} - <em>{event.location}</em> - {event.date}, {event.time}, price:  ${event.price}.
+            </li>
+          ))}
+        </ul>
+        <ul id={listId}>
           {/* dynamically create lis from Eventonica database 
           Events table */}
           <li></li>
@@ -142,5 +150,12 @@ function Login() {
         <input type="submit" value="Login" />
       </form>
     </div>
+  );
+}
+function DeleteUserButton(user_id) {
+  return (
+    <button>
+      Delete Profile
+    </button>
   );
 }
