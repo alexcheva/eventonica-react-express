@@ -26,6 +26,28 @@ function Header() {
     </header>
   );
 }
+function SayHello() {
+  const [name, setName] = React.useState(null);
+  const onChange = ({ currentTarget: { value } }) => setName(value);
+  return (
+    <section>
+    <h2>Hello</h2>
+        <label>What is your name?</label>
+        <input type="text"
+          name="name"
+          value={name} 
+          onChange={onChange}
+        />
+      {/*<input type="submit" value="Submit" onClick={onChange} /> */}
+        <GreetUser name={name} />
+      </section>
+  );
+}
+function GreetUser(props) {
+  const { name } = props;
+  return <h4>Welcome, {name}!</h4>
+}
+
 function Signup() {
   const [username, setUsername] = React.useState(null);
   const [fname, setFname] = React.useState(null);
@@ -39,7 +61,7 @@ function Signup() {
   };
   return (
     <section>
-      <h3>Sign Up:</h3>
+      <h2>Sign Up:</h2>
       <form id="add-user">
         <fieldset>
           <label>Username:</label>
@@ -73,14 +95,14 @@ function Signup() {
         </fieldset>
         <input type="submit" onSubmit={onChange} value="Register" />
       </form>
-      <ShowUser username={username} fname={fname} lname={lname} email={email} />
+      {/*<ShowUser username={username} fname={fname} lname={lname} email={email}  />*/}
     </section>
   );
 }
-function ShowUser(props) {
+{/*function ShowUser(props) {
   const { username, fname, lname, email } = props;
   return <p>User info: username: {username}, First Name: {fname}, Last Name: {lname}, email: {email}</p>
-}
+}*/}
 {/* Events */}
 function Events() {
   return (
@@ -97,7 +119,7 @@ function Events() {
 function AddEventForm() {
   return (
     <section>
-      <h3>Add Event</h3>
+      <h2>Add Event</h2>
       <form id="add-event" action="/addEvent" method="POST">
         <fieldset>
           <label>Name:</label>
@@ -156,6 +178,7 @@ function App() {
   return (
     <div className="container">
       <Header />
+      <SayHello />
       <Signup />
       <main>
         <Events />
