@@ -39,6 +39,7 @@ function SayHello() {
           onChange={onChange}
         />
       {/*<input type="submit" value="Submit" onClick={onChange} /> */}
+      {/* how to use if else statement? */}
         <GreetUser name={name} />
       </section>
   );
@@ -53,22 +54,33 @@ function Signup() {
   const [fname, setFname] = React.useState(null);
   const [lname, setLname] = React.useState(null);
   const [email, setEmail] = React.useState(null);
+  {/* how to make this work? */ }
   const onChange = ({ currentTarget: { value } }) => {
     setUsername(value);
     setFname(value);
     setLname(value);
     setEmail(value);
   };
+  
+  const usernameRef = React.useRef();
+  const fnameRef = React.useRef();
+  const lnameRef = React.useRef();
+  const emailRef = React.useRef();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log('USER FORM:', "Username:", usernameRef.current.value, ", First Name:", fnameRef.current.value, ", Last Name:", lnameRef.current.value, ", email:", emailRef.current.value)
+  }
   return (
     <section>
       <h2>Sign Up:</h2>
-      <form id="add-user">
+      <form id="add-user" onSubmit={handleSubmit}>
         <fieldset>
           <label>Username:</label>
           <input type="text" id="add-username"
-          name="username"
+            name="username"
             value={username} 
-           
+            ref={usernameRef}
           />
         </fieldset>
         <fieldset>
@@ -76,7 +88,8 @@ function Signup() {
           <input type="text"
             id="fname"
             name="fname"
-            value={fname} 
+            value={fname}
+            ref={fnameRef}
             />
         </fieldset>
         <fieldset>
@@ -84,16 +97,18 @@ function Signup() {
           <input type="text"
             id="lname"
             name="lname"
-            value={lname} />
+            value={lname}
+            ref={lnameRef}/>
         </fieldset>
         <fieldset>
           <label for="email">Email:</label>
           <input type="text"
             id="email"
             name="email"
-            value={email} />
+            value={email}
+            ref={emailRef}/>
         </fieldset>
-        <input type="submit" onSubmit={onChange} value="Register" />
+        <input type="submit" value="Register" />
       </form>
       {/*<ShowUser username={username} fname={fname} lname={lname} email={email}  />*/}
     </section>
@@ -117,10 +132,14 @@ function Events() {
 }
 {/* ADD EVENT FORM */}
 function AddEventForm() {
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log('You have submitted the form.')
+  }
   return (
     <section>
       <h2>Add Event</h2>
-      <form id="add-event" action="/addEvent" method="POST">
+      <form id="add-event" onSubmit={handleSubmit} >
         <fieldset>
           <label>Name:</label>
           <input
