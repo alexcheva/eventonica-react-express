@@ -194,8 +194,19 @@ function AddEventForm() {
   );
 }
 function App() {
+  const [apiResponse, setAPIResponse] = React.useState("");
+  function callAPI() {
+    fetch("http://localhost:9000/testAPI")
+      .then(res => res.text())
+      .then(res => setAPIResponse(res))
+      .catch(err => err);
+  };
+  React.useEffect(() => {
+    callAPI();
+  });
   return (
     <div className="container">
+    <p className="App-intro">{apiResponse}</p>
       <Header />
       <SayHello />
       <Signup />
